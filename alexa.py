@@ -41,6 +41,28 @@ def main():
             break
 
     print("\nOutput:")
+    
+    for peminjaman in data_peminjaman:
+        print(peminjaman)
+
+    kode_member_cari = input("\nMasukkan Kode Member: ")
+    data_peminjaman_cari = cari_data_peminjaman(kode_member_cari, data_peminjaman)
+
+    if data_peminjaman_cari is not None:
+        print("\nData Peminjaman Buku")
+        print(f"Kode Member: {data_peminjaman_cari['Kode Member']}")
+        print(f"Nama Member: {data_peminjaman_cari['Nama Member']}")
+        print(f"Judul Buku: {data_peminjaman_cari['Judul Buku']}")
+        print(f"Tanggal Mulai Peminjaman: {data_peminjaman_cari['Tanggal Mulai Peminjaman']}")
+        print(f"Tanggal Maks Peminjaman: {data_peminjaman_cari['Tanggal Maks Peminjaman']}")
+        print(f"Tanggal Pengembalian: {data_peminjaman_cari['Tanggal Pengembalian']}")
+        print(f"Terlambat: {data_peminjaman_cari['Terlambat']} hari")
+        print(f"Denda: Rp{data_peminjaman_cari['Denda']}")
+        print("Keterangan:")
+        print("• Tanggal Pengembalian diambil dari tanggal ketika running program.")
+        print("• Denda keterlambatan diasumsikan Rp 2.000/hari")
+    else:
+        print("Data peminjaman buku tidak ditemukan.")
 
 if __name__ == '__main__':
     main()
