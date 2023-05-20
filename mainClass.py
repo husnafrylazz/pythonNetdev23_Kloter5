@@ -5,8 +5,8 @@ class Perpustakaan:
         self.data_peminjaman = [] #array kosong untuk simpan data peminjam.
 
     def tambah_peminjaman(self, kode, nama, judul):
-        tgl_pinjam = datetime.now().strftime('%Y-%m-%d') #ubah jadi string dengan format YYYY-MM-DD.
-        tgl_maks_kembali = (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')
+        tgl_pinjam = datetime.today().date() #tanggal hari peminjaman
+        tgl_maks_kembali = (datetime.today().date + timedelta(days=7))
         self.data_peminjaman.append({
             'kode': kode,
             'nama': nama,
@@ -22,6 +22,6 @@ class Perpustakaan:
     
     def WaktuPinjam(self, x):
         tglKembali = datetime.strptime(x, '%Y-%m-%d')
-        tglPinjam = datetime.now()
-        selisih = (tglKembali - tglPinjam).days
+        tglPinjam = datetime.today().date() + timedelta(days=7)
+        selisih = (tglKembali.date() - tglPinjam).days
         return selisih
