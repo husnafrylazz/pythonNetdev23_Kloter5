@@ -14,7 +14,12 @@ class Perpustakaan:
             'tgl_pinjam': tgl_pinjam,
             'tgl_kembali': tgl_maks_kembali
         }) #append pada array data_peminjam yang berisi kode, nama, judul, tgl_pinjam, dan tgl_kembali.
-
+        
+    def cari_peminjaman(self, kode):
+        for peminjaman in self.data_peminjaman:
+            if peminjaman['kode'] == kode:
+                return peminjaman
+    
     def WaktuPinjam(self, x):
         tglKembali = datetime.strptime(x, '%Y-%m-%d')
         tglPinjam = datetime.now()
