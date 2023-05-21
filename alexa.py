@@ -1,45 +1,39 @@
-from datetime import datetime, timedelta
-
-class WaktuPinjam:
-    def __init__(self, tanggal_pinjam):
-        self.tanggal_pinjam = datetime.strptime(tanggal_pinjam, '%Y-%m-%d').date()
-
-    def hitung_selisih_hari(self):
-        tanggal_hari_ini = datetime.now().date()
-        selisih_hari = (tanggal_hari_ini - self.tanggal_pinjam).days
-        return selisih_hari
-
-def cari_data_peminjaman(kode_member, data_peminjaman):
-    for peminjaman in data_peminjaman:
-        data = peminjaman.split('|')
-        if data[0] == kode_member:
-            return {
-                'Kode Member': data[0],
-                'Nama Member': data[1],
-                'Judul Buku': data[2],
-                'Tanggal Mulai Peminjaman': data[3],
-                'Tanggal Maks Peminjaman': data[4],
-                'Tanggal Pengembalian': datetime.now().date().strftime("%Y-%m-%d"),
-                'Terlambat': max(0, WaktuPinjam(data[4]).hitung_selisih_hari() - 7),
-                'Denda': max(0, (WaktuPinjam(data[4]).hitung_selisih_hari() - 7) * 2000)
-            }
-    return None
-
 def main():
-    data_peminjaman = []
-    while True:
-        kode_member = input("Masukkan Kode Member: ")
-        nama_member = input("Masukkan Nama Member: ")
-        judul_buku = input("Masukkan Judul Buku: ")
-        tanggal_peminjaman = datetime.now().date().strftime("%Y-%m-%d")
-        tanggal_pengembalian = (datetime.now() + timedelta(days=7)).date().strftime("%Y-%m-%d")
+    perpustakaan = Perpustakaan()
 
-        data_peminjaman.append(f"{kode_member}|{nama_member}|{judul_buku}|{tanggal_peminjaman}|{tanggal_pengembalian}")
+    print("===== Masukkan Data Peminjam =====")
+    while True:
+        kode = input("Masukkan Kode Member\t: ")
+        nama = input("Masukkan Nama Member\t: ")
+        judul = input("Masukkan Judul Buku\t\t: ")
+
+        perpustakaan.tambah_peminjaman(kode, nama, judul)
 
         ulangi = input("Ulangi lagi (y/n): ")
         if ulangi.lower() != 'y':
             break
 
-if __name__ == '__main__':
-    main()
+    print("\nData Peminjam: ")
+    for peminjaman in perpustakaan.data_peminjaman:
+        print(f"{peminjaman['kode']}|{peminjaman['nama']}|{peminjaman['judul']}|{peminjaman['tgl_pinjam']}|{peminjaman['tgl_kembali']}")
 
+    print("\n===== Cari Data Peminjam =====")
+    cari_kode = input("Masukkan Kode Member\t: ")
+    peminjaman_ditemukan = perpustakaan.cari_peminjaman(cari_kode)
+
+    if peminjaman_ditemukan:
+        print("\n===== Data Peminjaman Buku =====")
+        print("Kode Member\t\t\t\t: " + str(peminjaman_ditemukan['kode']))
+        print("Nama Member\t\t\t\t: " + str(peminjaman_ditemukan['nama']))
+        print("Judul Buku\t\t\t\t: " + str(peminjaman_ditemukan['judul']))
+        print("Tanggal Mulai Peminjaman: " + str(peminjaman_ditemukan['tgl_pinjam']))
+        print("Tanggal Maks Peminjaman\t: " + str(peminjaman_ditemukan['tgl_kembali']))
+
+        selisih = datetime.today().date()
+        terlambat = perpustakaan.WaktuPinjam(selisih)
+        denda = terlambat * 2000
+        print("Tanggal Pengembalian\t: " + str(selisih))
+        print("Terlambat\t\t\t\t: " + str(terlambat) + " hari")
+        print("Denda\t\t\t\t\t: Rp " + str(denda))
+    else:
+        print("Data peminjaman tidak ditemukan.")
