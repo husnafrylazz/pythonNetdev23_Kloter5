@@ -11,7 +11,7 @@ class Perpustakaan:
         skrg = datetime.now()
         year = skrg.year
         month = skrg.month
-        day = random.randint(1, 30)  # tanggal 1-30
+        day = random.randint(1, 14)
         tanggal_acak = datetime(year, month, day)
         return tanggal_acak.date()
 
@@ -76,5 +76,4 @@ def main():
     else:
         print("Data peminjaman tidak ditemukan.")
 
-# Panggil fungsi main()
 main()
