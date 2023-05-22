@@ -57,6 +57,7 @@ def main():
 
     print("\n===== Cari Data Peminjam =====")
     cari_kode = input("Masukkan Kode Member\t: ")
+    print(cari_kode)
     peminjaman_ditemukan = perpustakaan.cari_peminjaman(cari_kode)
 
     if peminjaman_ditemukan:
