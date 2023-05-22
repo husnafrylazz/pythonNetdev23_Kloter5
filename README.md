@@ -1,5 +1,5 @@
 # PYTHON Kloter 5 Netdev
-Membuat sebuah program Python untuk menyimpan informasi peminjaman buku di sebuah perpustakaan. Informasi yang perlu disimpan meliputi kode anggota, nama anggota, judul buku, tanggal peminjaman (yang diambil dari tanggal saat ini), dan tanggal maksimum (yaitu 7 hari setelah tanggal peminjaman).
+Membuat sebuah program Python menggunakan konsep OOP untuk menyimpan informasi peminjaman buku di sebuah perpustakaan. Informasi yang perlu disimpan meliputi kode anggota, nama anggota, judul buku, tanggal peminjaman (yang diambil dari tanggal saat ini), dan tanggal maksimum (yaitu 7 hari setelah tanggal peminjaman).
 
 
 # Pre-Task:
@@ -21,3 +21,4 @@ Tools:
   1. Python 3.10 or newer
   2. Text Editor: dibebaskan, tapi disarankan Visual Studio code
   3. Git
+
